@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -43,19 +42,19 @@ class _sampleState extends State<sample> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 71, 184, 254),
+          backgroundColor: const Color.fromARGB(255, 71, 184, 254),
         ),
-        backgroundColor: Color.fromARGB(255, 71, 184, 254),
+        backgroundColor: const Color.fromARGB(255, 71, 184, 254),
         body: SingleChildScrollView(
           child: FutureBuilder<MediaPosts>(
             future: futurePost,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return CircularProgressIndicator();
+                return const CircularProgressIndicator();
               } else if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else if (!snapshot.hasData) {
-                return Text('No data available');
+                return const Text('No data available');
               } else {
                 final post = snapshot.data!;
                 return Column(
@@ -79,13 +78,13 @@ class _sampleState extends State<sample> {
                     ),
                     ElevatedButton(onPressed: () {
                       setState(() {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => sample(),));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const sample(),));
 
 
                       });
-                    }, child: Text("Go")
+                    }, child: const Text("Go")
                     ),
-                    Container(
+                    const SizedBox(
                       height: 250,
                       child: Image(
                         image: AssetImage("images/sun.png"),
@@ -94,14 +93,14 @@ class _sampleState extends State<sample> {
 
                     Text(' ${post.temp}°C',
 
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 60,
                           fontFamily: "Gotham",
                           color: Colors.white
                       ),
                     ),
 
-                    Container(
+                    SizedBox(
                       width: 350,
 
                       child: Card(
@@ -109,27 +108,27 @@ class _sampleState extends State<sample> {
                           borderRadius: BorderRadius.circular(30),
 
                         ),
-                        color: Color.fromARGB(255, 123, 203, 254),
+                        color: const Color.fromARGB(255, 123, 203, 254),
                         child: Container(
                           child: Column(
                             children: [
                               Text(' Feels Like ${post.feels_like}°C',
 
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 30,
                                     fontFamily: "Poppins",
                                     color: Colors.white
                                 ),
                               ),
                               Text('Humidity: ${post.humidity}%',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 20,
                                   fontFamily: "Poppins",
                                   color: Colors.white,
                                 ),
                               ),
                               Text('Pressure: ${post.pressure} hPa',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 20,
                                   fontFamily: "Poppins",
                                   color: Colors.white,

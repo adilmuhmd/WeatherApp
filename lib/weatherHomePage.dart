@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter/cupertino.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:weatherapp/weather.dart';
-import 'package:weatherapp/weathersample.dart';
-import 'weatherService.dart';
 
 
 final TextEditingController _controller = TextEditingController();
+
+
 
 
 
@@ -87,14 +85,17 @@ class _weatherHomePageState extends State<weatherHomePage> {
     super.initState();
     getWeather();
   }
-
+  var size,height,width;
   @override
   Widget build(BuildContext context) {
+    size = MediaQuery.of(context).size;
+    height=size.height;
+    width=size.width;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               fit:BoxFit.cover,
               image: AssetImage("images/bg.jpg")
@@ -105,26 +106,31 @@ class _weatherHomePageState extends State<weatherHomePage> {
               future: getWeather(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 } else if (snapshot.hasError) {
                   return Text('Error: ${snapshot.error}');
                 } else if (!snapshot.hasData) {
-                  return Text('No data available');
+                  return const Text('No data available');
                 } else {
                   final post = snapshot.data!;
 
-                  return SingleChildScrollView(
+                  return SizedBox(
+                    height: MediaQuery.sizeOf(context).height,
                     child: Column(
                       children: [
+                        SizedBox(
+                          height: MediaQuery.sizeOf(context).height/25,
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             SizedBox(
                               width: 300,
                               child: TextField(
-
                                 onChanged: (value) {
-                                  eg=value;
+                                  setState(() {
+                                    eg=value;
+                                  });
                                 },
                                 controller: _controller,
                                 keyboardType: TextInputType.name,
@@ -139,23 +145,23 @@ class _weatherHomePageState extends State<weatherHomePage> {
                               ),
                             ),
                             FloatingActionButton(
-                              shape: CircleBorder(eccentricity: CircularProgressIndicator.strokeAlignCenter),
+                              shape: const CircleBorder(eccentricity: CircularProgressIndicator.strokeAlignCenter),
                               backgroundColor: Colors.white,
                               onPressed: () {
                                 setState(() {
                                   name=eg;
                                 });
                               },
-                              child: Icon(Icons.search),
+                              child: const Icon(Icons.search),
                             ),
                           ],
                         ),
                         SizedBox(
-                          height: 50,
+                          height: MediaQuery.sizeOf(context).height/25,
                         ),
                         Text(' ${post.name}',
-
-                          style: TextStyle(
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
                               fontSize: 60,
                               fontFamily: "Gotham",
                               fontWeight: FontWeight.bold,
@@ -164,20 +170,21 @@ class _weatherHomePageState extends State<weatherHomePage> {
                         ),
                         Center(
                           child: Container(
-                            height:300,
+                            height:270,
                             width: MediaQuery.sizeOf(context).width,
                             decoration: BoxDecoration(
                                 image:DecorationImage(
                                   fit: BoxFit.contain,
-                                  image: AssetImage(weatherimage("${post.icon}")),
+                                  image: AssetImage(weatherimage(post.icon)),
                                 )
                             ),
                           ),
                         ),
 
                         Text(' ${post.temp}°',
+                          textAlign: TextAlign.center,
 
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 70,
                               fontFamily: "Gotham",
                               fontWeight: FontWeight.bold,
@@ -185,8 +192,9 @@ class _weatherHomePageState extends State<weatherHomePage> {
                           ),
                         ),
                         Text(' Feels Like ${post.feels_like}°C',
+                          textAlign: TextAlign.center,
 
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 30,
                               fontFamily: "Poppins",
                               color: Colors.white
@@ -195,8 +203,9 @@ class _weatherHomePageState extends State<weatherHomePage> {
 
 
                         Text(' ${post.main}',
+                          textAlign: TextAlign.center,
 
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 20,
                               fontFamily: "Gotham",
                               fontWeight: FontWeight.bold,
@@ -204,8 +213,8 @@ class _weatherHomePageState extends State<weatherHomePage> {
                           ),
                         ),
 
-                        SizedBox(
-                          height: 50,
+                        const SizedBox(
+                          height: 20,
                         ),
                         SizedBox(
                           height: 80,
@@ -225,16 +234,16 @@ class _weatherHomePageState extends State<weatherHomePage> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    ImageIcon(
+                                    const ImageIcon(
                                         AssetImage("images/humidity.png")
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
 
 
                                     Text('${post.humidity}%',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 20,
                                         fontFamily: "Poppins",
                                         color: Colors.black,
@@ -244,21 +253,21 @@ class _weatherHomePageState extends State<weatherHomePage> {
 
                                   ],
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 30,
                                 ),
                                 Row(
                                   mainAxisAlignment:MainAxisAlignment.spaceBetween,
                                   children: [
-                                    ImageIcon(
+                                    const ImageIcon(
                                         AssetImage("images/pressure.png")
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 5,
                                     ),
 
                                     Text(' ${post.pressure} hPa',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 20,
                                         fontFamily: "Poppins",
                                         color: Colors.black,
