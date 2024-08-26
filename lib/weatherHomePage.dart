@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:weatherapp/weather.dart';
 
 
-final TextEditingController _controller = TextEditingController();
+final TextEditingController cityController = TextEditingController();
 
 
 
@@ -31,7 +31,7 @@ class _weatherHomePageState extends State<weatherHomePage> {
     }
   }
 
-  String name="chicago";
+  String name="trivandrum";
   String eg="chicago";
 
 
@@ -62,7 +62,7 @@ class _weatherHomePageState extends State<weatherHomePage> {
       case "10d":
         return "images/rain.png";
       case "10n":
-      return "images/rainn.png";
+        return "images/rainn.png";
       case "11d":
         return "images/thunderstorm.png";
       case "11n":
@@ -96,10 +96,10 @@ class _weatherHomePageState extends State<weatherHomePage> {
       home: Scaffold(
         body: Container(
           decoration: const BoxDecoration(
-            image: DecorationImage(
-              fit:BoxFit.cover,
-              image: AssetImage("images/bg.jpg")
-            )
+              image: DecorationImage(
+                  fit:BoxFit.cover,
+                  image: AssetImage("images/bg.jpg")
+              )
           ),
           child: Center(
             child: FutureBuilder<Weather>(
@@ -126,19 +126,14 @@ class _weatherHomePageState extends State<weatherHomePage> {
                           children: [
                             SizedBox(
                               width: 300,
-                              child: TextField(
-                                onChanged: (value) {
-                                  setState(() {
-                                    eg=value;
-                                  });
-                                },
-                                controller: _controller,
+                              child: TextFormField(
+                                controller: cityController,
                                 keyboardType: TextInputType.name,
                                 decoration: InputDecoration(
                                   filled: true,
                                   fillColor: Colors.white,
                                   border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(40),
+                                    borderRadius: BorderRadius.circular(40),
                                   ),
                                   labelText: 'Enter the city',
                                 ),
@@ -185,10 +180,10 @@ class _weatherHomePageState extends State<weatherHomePage> {
                           textAlign: TextAlign.center,
 
                           style: const TextStyle(
-                              fontSize: 70,
-                              fontFamily: "Gotham",
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                            fontSize: 70,
+                            fontFamily: "Gotham",
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
                           ),
                         ),
                         Text(' Feels Like ${post.feels_like}°C',
@@ -220,7 +215,7 @@ class _weatherHomePageState extends State<weatherHomePage> {
                           height: 80,
                           child: Card(
                             shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(40),
+                              borderRadius: BorderRadius.circular(40),
                             ),
                             shadowColor: Colors.grey,
                             color: Colors.white,
@@ -294,4 +289,3 @@ class _weatherHomePageState extends State<weatherHomePage> {
     );
   }
 }
-

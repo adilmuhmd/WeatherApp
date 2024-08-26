@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:weatherapp/weatherHomePage.dart';
+import 'package:weatherapp/weathersample.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const sample());
 }
 
 class MyApp extends StatelessWidget {
